@@ -24,4 +24,12 @@ public class GatewayApplication {
             .filter(lb("SERVICE-CLIENT"))
             .build();
     }
+
+    @Bean
+    RouterFunction<ServerResponse> voitureRoutes() {
+        return route("service-voiture")
+            .route(path("/voitures").or(path("/voitures/**")), http())
+            .filter(lb("SERVICE-VOITURE"))
+            .build();
+    }
 }

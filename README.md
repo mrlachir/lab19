@@ -57,3 +57,27 @@ classDiagram
 The stored relationship is `clientId`; Client is a remote POJO, so the
 enriched field is `@Transient`. Feign calls the existing singular
 `/client/{id}` endpoint. The seed does not depend on remote calls.
+
+## Étapes 8–10: Voiture API and final checks
+
+Rebuild with `mvn clean package` after stopping old runs, then launch
+Eureka, Client, Voiture and Gateway in separate terminals.
+
+| Screenshot | URL | Expected result |
+|---|---|---|
+| Eureka | http://localhost:8761/ | SERVICE-CLIENT, SERVICE-VOITURE and GATEWAY are UP |
+| Clients through Gateway | http://localhost:8888/clients | Three clients |
+| Cars through Gateway | http://localhost:8888/voitures | Three cars, with their owners |
+| Car detail | http://localhost:8089/voitures/1 | Toyota Corolla, owned by Rabab SELIMANI |
+| Cars by client | http://localhost:8089/voitures/client/1 | Toyota and Renault |
+
+The Gateway also forwards the detail and owner-filter URLs under port 8888.
+To demonstrate writes, send JSON with an HTTP client such as PowerShell:
+
+```powershell
+$car = Invoke-RestMethod http://localhost:8888/voitures/2 -Method Post -ContentType 'application/json' -Body '{"marque":"Dacia","matricule":"LAB-19","model":"Logan"}'
+Invoke-RestMethod "http://localhost:8888/voitures/$($car.id)" -Method Put -ContentType 'application/json' -Body '{"model":"Sandero"}'
+```
+
+POST uses the client ID in the URL. PUT changes only supplied, nonblank
+vehicle fields and leaves the owner unchanged. H2 resets when Voiture restarts.
