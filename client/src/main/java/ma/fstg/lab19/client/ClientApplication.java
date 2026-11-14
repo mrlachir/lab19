@@ -17,6 +17,8 @@ public class ClientApplication {
     org.springframework.boot.CommandLineRunner initialiserBaseH2(
             ma.fstg.lab19.client.repositories.ClientRepository repository) {
         return args -> repository.saveAll(java.util.List.of(
+
+                
             new ma.fstg.lab19.client.entities.Client(null, "Rabab SELIMANI", 23f),
             new ma.fstg.lab19.client.entities.Client(null, "Amal RAMI", 22f),
             new ma.fstg.lab19.client.entities.Client(null, "Samir SAFI", 22f)));

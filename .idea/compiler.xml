@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="service-voiture" />
         <module name="client" />
         <module name="eureka-server" />
         <module name="gateway" />
@@ -18,6 +19,7 @@
       <module name="client" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
       <module name="gateway" options="-parameters" />
+      <module name="service-voiture" options="-parameters" />
     </option>
   </component>
 </project>
